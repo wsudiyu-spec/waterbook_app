@@ -1,0 +1,221 @@
+/**
+ * 水书仪式元素桑基图
+ */
+(function () {
+    "use strict";
+
+    var container = document.getElementById("sankeyChart");
+    if (!container || typeof echarts === "undefined") return;
+
+    var chart = echarts.init(container, null, {
+        renderer: "canvas",
+        locale: "ZH"
+    });
+
+    var option = {
+        "animation": true,
+        "animationThreshold": 2000,
+        "animationDuration": 1000,
+        "animationEasing": "cubicOut",
+        "animationDelay": 0,
+        "animationDurationUpdate": 300,
+        "animationEasingUpdate": "cubicOut",
+        "animationDelayUpdate": 0,
+        "aria": {"enabled": false},
+        "series": [{
+            "type": "sankey",
+            "name": "\u6c34\u4e66\u4eea\u5f0f\u5143\u7d20",
+            "data": [
+                {"name": "\u4eea\u5f0f\u7cfb\u7edf", "tooltip": "<b>\u4eea\u5f0f\u7cfb\u7edf</b><br/>\u6c34\u65cf\u5404\u7c7b\u4f20\u7edf\u4eea\u5f0f\u7684\u603b\u96c6\u5408\uff0c\u5305\u542b\u796d\u7940\u3001\u5a5a\u5ac1\u3001\u4e27\u846c\u3001\u5929\u6587\u62e9\u65e5\u56db\u5927\u4f53\u7cfb"},
+                {"name": "\u7aef\u8282\u796d\u7940", "tooltip": "<b>\u7aef\u8282\u796d\u7940</b><br/>\u6c34\u65cf\u65b0\u5e74\uff0c\u4ee5\u796d\u7940\u7956\u5148\u548c\u7948\u6c42\u4e30\u6536\u4e3a\u6838\u5fc3\uff0c\u662f\u6c34\u65cf\u6700\u9686\u91cd\u7684\u5e74\u5ea6\u76db\u5178\u3002"},
+                {"name": "\u5a5a\u5ac1\u62e9\u5409", "tooltip": "<b>\u5a5a\u5ac1\u62e9\u5409</b><br/>\u6c34\u65cf\u5a5a\u4fd7\u4e2d\u4f9d\u636e\u5386\u6cd5\u4e0e\u5409\u65e5\u5409\u65f6\u9009\u62e9\u8fce\u4eb2\u65e5\u671f\uff0c\u65e8\u5728\u5951\u5408\u548c\u5408\u3001\u7e41\u884d\u4e4b\u9053\uff0c\u786e\u4fdd\u5a5a\u59fb\u987a\u9042\u3001\u5bb6\u65cf\u5174\u65fa\u3002"},
+                {"name": "\u4e27\u846c\u7948\u798f", "tooltip": "<b>\u4e27\u846c\u7948\u798f</b><br/>\u6c34\u65cf\u4e27\u846c\u4eea\u5f0f\u4e2d\u901a\u8fc7\u6307\u8def\u3001\u5f15\u9b42\u3001\u7eb8\u624e\u7b49\u65b9\u5f0f\u4e3a\u4ea1\u7075\u7948\u798f\uff0c\u5f15\u5bfc\u5176\u56de\u5f52\u7956\u5730\uff0c\u540c\u65f6\u62a4\u4f51\u751f\u8005\u5e73\u5b89\u907f\u715e\u3002"},
+                {"name": "\u5929\u6587\u62e9\u65e5", "tooltip": "<b>\u5929\u6587\u62e9\u65e5</b><br/>\u6c34\u65cf\u57fa\u4e8e\u661f\u5bbf\u3001\u5929\u5e72\u5730\u652f\u4e0e\u8282\u6c14\u63a8\u7b97\u5409\u51f6\u65f6\u8fb0\u4e0e\u65b9\u4f4d\uff0c\u7528\u4e8e\u796d\u5929\u3001\u519c\u4e8b\u3001\u5efa\u9020\u7b49\u91cd\u5927\u6d3b\u52a8\uff0c\u4f53\u73b0\u5b87\u5b99\u89c2\u4e0e\u65f6\u95f4\u79e9\u5e8f\u3002"},
+                {"name": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "tooltip": "<b>\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)</b><br/>\u6c34\u4e66\u4eea\u5f0f\u4e2d\u7528\u4e8e\u8868\u8fbe\u6838\u5fc3\u7406\u5ff5\u3001\u79e9\u5e8f\u3001\u4fe1\u4ef0\u7684\u6587\u5b57\u7b26\u53f7\u4f53\u7cfb"},
+                {"name": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "tooltip": "<b>\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)</b><br/>\u4eea\u5f0f\u4e2d\u4f7f\u7528\u7684\u5668\u7269\u3001\u7eb9\u7406\u3001\u5de5\u827a\u7b49\u7269\u8d28\u8f7d\u4f53"},
+                {"name": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "tooltip": "<b>\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)</b><br/>\u4eea\u5f0f\u53d1\u751f\u7684\u7a7a\u95f4\u5e03\u5c40\u3001\u8def\u5f84\u3001\u65b9\u4f4d\u3001\u5efa\u7b51\u7b49\u73af\u5883\u5143\u7d20"},
+                {"name": "\u7956", "tooltip": "<b>\u7956</b><br/>\u4ee3\u8868\u6c34\u65cf\u796d\u7940\u4e2d\u7684\u7956\u5148\u5d07\u62dc\u6838\u5fc3\uff0c\u662f\u6240\u6709\u4eea\u5f0f\u7684\u7cbe\u795e\u6e90\u5934\u548c\u6700\u9ad8\u656c\u5949\u5bf9\u8c61\u3002"},
+                {"name": "\u796d", "tooltip": "<b>\u796d</b><br/>\u5305\u542b\u4e0a\u65b9\u7684\u6846\u67b6\u7ed3\u6784\u6a21\u62df\u4f9b\u684c\uff0c\u4e0b\u65b9\u7684\u4e09\u4e2a\u5706\u70b9\u8c61\u5f81\u53c2\u4e0e\u796d\u7940\u7684\u65cf\u4eba\uff0c\u76f4\u89c2\u8fd8\u539f\u6c34\u65cf\u796d\u7940\u4eea\u5f0f\u573a\u666f\u3002"},
+                {"name": "\u9c7c", "tooltip": "<b>\u9c7c</b><br/>\u8c61\u5f81\u6c34\u65cf\u4e0e\u6c34\u7684\u5bc6\u5207\u5173\u7cfb\uff0c\u4ee5\u53ca\u9c7c\u4f5c\u4e3a\u91cd\u8981\u796d\u54c1\u7684\u6587\u5316\u5185\u6db5\u3002"},
+                {"name": "\u5e74", "tooltip": "<b>\u5e74</b><br/>\u4f53\u73b0\u6c34\u65cf\u5bf9\u65f6\u95f4\u5468\u671f\u7684\u8ba4\u77e5\uff0c\u4e0e\u7aef\u8282\u7b49\u5e74\u5ea6\u91cd\u8981\u796d\u7940\u6d3b\u52a8\u5bc6\u5207\u76f8\u5173\u3002"},
+                {"name": "\u94dc\u9f13\u7eb9\u7406", "tooltip": "<b>\u94dc\u9f13\u7eb9\u7406</b><br/>\u6c34\u65cf\u6807\u5fd7\u6027\u6587\u5316\u7b26\u53f7\uff0c\u5176\u7eb9\u6837\u8574\u542b\u4e30\u5bcc\u7684\u5386\u53f2\u8bb0\u5fc6\u548c\u5b87\u5b99\u89c2\u3002"},
+                {"name": "\u725b\u89d2\u676f\u5f62\u6001", "tooltip": "<b>\u725b\u89d2\u676f\u5f62\u6001</b><br/>\u796d\u7940\u4e2d\u76db\u9152\u656c\u7956\u7684\u5668\u5177\uff0c\u725b\u89d2\u9020\u578b\u8c61\u5f81\u529b\u91cf\u4e0e\u795e\u5723\u6c9f\u901a\u3002"},
+                {"name": "\u9c7c\u5305\u97ed\u83dc\u7ed3\u6784", "tooltip": "<b>\u9c7c\u5305\u97ed\u83dc\u7ed3\u6784</b><br/>\u7aef\u8282\u5fc5\u5907\u796d\u54c1\uff0c\u5c06\u97ed\u83dc\u586b\u5165\u9c7c\u8179\uff0c\u5bd3\u610f\u656c\u754f\u81ea\u7136\u4e0e\u7948\u6c42\u4e30\u6536\u3002"},
+                {"name": "\u5b97\u7960\u5efa\u7b51\u6784\u4ef6", "tooltip": "<b>\u5b97\u7960\u5efa\u7b51\u6784\u4ef6</b><br/>\u5bb6\u65cf\u796d\u7940\u7684\u7269\u8d28\u8f7d\u4f53\uff0c\u96d5\u523b\u7eb9\u6837\u8bb0\u8f7d\u5b97\u65cf\u8c31\u7cfb\u4e0e\u96c6\u4f53\u8bb0\u5fc6\u3002"},
+                {"name": "\u957f\u5e2d\u9635\u5217", "tooltip": "<b>\u957f\u5e2d\u9635\u5217</b><br/>\u7aef\u8282\u805a\u9910\u65f6\u7684\u957f\u684c\u6392\u5217\uff0c\u4f53\u73b0\u65cf\u4eba\u5171\u98df\u56e2\u7ed3\u4e0e\u7956\u5148\u5171\u4eab\u796d\u54c1\u7684\u4eea\u5f0f\u4f26\u7406\u3002"},
+                {"name": "\u796d\u575b\u5e03\u5c40", "tooltip": "<b>\u796d\u575b\u5e03\u5c40</b><br/>\u5c55\u793a\u6c34\u65cf\u796d\u7940\u7a7a\u95f4\u7684\u795e\u5723\u7ed3\u6784\uff0c\u4f53\u73b0\u201c\u5929-\u5730-\u4eba\u201d\u4e09\u754c\u89c2\u5ff5\u3002"},
+                {"name": "\u548c\u5408", "tooltip": "<b>\u548c\u5408</b><br/>\u5a5a\u5ac1\u4eea\u5f0f\u7684\u6838\u5fc3\u7406\u5ff5\uff0c\u8c61\u5f81\u592b\u59bb\u548c\u8c10\u3001\u5bb6\u5ead\u5706\u6ee1\u4e0e\u4e24\u59d3\u8054\u59fb\u7684\u878d\u5408\u3002"},
+                {"name": "\u7e41\u884d", "tooltip": "<b>\u7e41\u884d</b><br/>\u6c34\u65cf\u5a5a\u4fd7\u4e2d\u5bf9\u751f\u80b2\u540e\u4ee3\u3001\u65cf\u8109\u5ef6\u7eed\u7684\u5f3a\u70c8\u7948\u613f\uff0c\u5e38\u901a\u8fc7\u8c61\u5f81\u6027\u7eb9\u6837\u8868\u8fbe\u3002"},
+                {"name": "\u5409\u65e5\u5386\u6cd5\u5b57", "tooltip": "<b>\u5409\u65e5\u5386\u6cd5\u5b57</b><br/>\u4f9d\u636e\u6c34\u65cf\u5386\u6cd5\u9009\u62e9\u5a5a\u5ac1\u5409\u65e5\uff0c\u4f53\u73b0\u5bf9\u65f6\u95f4\u548c\u547d\u8fd0\u79e9\u5e8f\u7684\u5c0a\u91cd\u3002"},
+                {"name": "\u4f34\u5ac1\u7af9\u7bee\u7f16\u7ec7\u7eb9", "tooltip": "<b>\u4f34\u5ac1\u7af9\u7bee\u7f16\u7ec7\u7eb9</b><br/>\u65b0\u5a18\u643a\u5e26\u7684\u7af9\u7bee\u7eb9\u6837\uff0c\u6bcf\u4e00\u9053\u7f16\u7ec7\u90fd\u5bd3\u610f\u751f\u6d3b\u4e30\u9976\u4e0e\u5e73\u5b89\u62a4\u4f51\u3002"},
+                {"name": "\u7279\u5b9a\u7ea2\u7ef3\u7ed3\u7ef3\u6cd5", "tooltip": "<b>\u7279\u5b9a\u7ea2\u7ef3\u7ed3\u7ef3\u6cd5</b><br/>\u7528\u4e8e\u7cfb\u5b9a\u59fb\u7f18\u7684\u7ea2\u7ef3\u7ed3\u6263\uff0c\u8c61\u5f81\u751f\u6b7b\u76f8\u7cfb\u3001\u6c38\u4e0d\u5206\u79bb\u7684\u5a5a\u59fb\u8a93\u8a00\u3002"},
+                {"name": "\u8fce\u4eb2\u8def\u5f84\u56fe\u8c31", "tooltip": "<b>\u8fce\u4eb2\u8def\u5f84\u56fe\u8c31</b><br/>\u7ed8\u5236\u8fce\u4eb2\u961f\u4f0d\u7684\u884c\u8d70\u8def\u7ebf\uff0c\u65e8\u5728\u907f\u5f00\u715e\u6c14\u3001\u987a\u5e94\u5730\u8109\u4e0e\u7956\u7075\u5e87\u4f51\u3002"},
+                {"name": "\u5802\u5c4b\u7ea2\u9ed1\u8272\u5f69\u6784\u6210", "tooltip": "<b>\u5802\u5c4b\u7ea2\u9ed1\u8272\u5f69\u6784\u6210</b><br/>\u5a5a\u5ac1\u5802\u5c4b\u7684\u4e3b\u8272\u8c03\uff0c\u7ea2\u8272\u4ee3\u8868\u559c\u5e86\u4e0e\u751f\u547d\u529b\uff0c\u9ed1\u8272\u8c61\u5f81\u5e84\u91cd\u4e0e\u7956\u5148\u8ba4\u53ef\u3002"},
+                {"name": "\u7075\u9b42", "tooltip": "<b>\u7075\u9b42</b><br/>\u4e27\u846c\u4eea\u5f0f\u4e2d\u656c\u754f\u7684\u5bf9\u8c61\uff0c\u6c34\u65cf\u8ba4\u4e3a\u4ea1\u7075\u9700\u8981\u5f15\u5bfc\u624d\u80fd\u56de\u5f52\u7956\u5c45\u5730\u3002"},
+                {"name": "\u6307\u8def", "tooltip": "<b>\u6307\u8def</b><br/>\u6cd5\u5e08\u901a\u8fc7\u4eea\u5f0f\u4e3a\u4ea1\u7075\u6307\u660e\u56de\u5f52\u7956\u5148\u6545\u571f\u7684\u8def\u5f84\uff0c\u786e\u4fdd\u7075\u9b42\u4e0d\u8ff7\u9014\u3002"},
+                {"name": "\u9634\u9633\u8f6c\u6362\u5b57", "tooltip": "<b>\u9634\u9633\u8f6c\u6362\u5b57</b><br/>\u6c34\u65cf\u6587\u5b57\u4e2d\u4e13\u95e8\u7528\u4e8e\u4e27\u846c\u7684\u7b26\u53f7\uff0c\u4e66\u5199\u751f\u6b7b\u4ea4\u66ff\u3001\u9b42\u9b44\u8fc1\u79fb\u7684\u5b87\u5b99\u6cd5\u5219\u3002"},
+                {"name": "\u5f15\u9b42\u5e61\u526a\u7eb8\u8f6e\u5ed3", "tooltip": "<b>\u5f15\u9b42\u5e61\u526a\u7eb8\u8f6e\u5ed3</b><br/>\u526a\u7eb8\u5236\u4f5c\u7684\u5f15\u9b42\u5e61\uff0c\u5176\u8f6e\u5ed3\u5f62\u72b6\u51b3\u5b9a\u4ea1\u7075\u5347\u8f6c\u7684\u901a\u9053\u4e0e\u65b9\u5411\u3002"},
+                {"name": "\u6cd5\u5e08\u82a6\u7b19", "tooltip": "<b>\u6cd5\u5e08\u82a6\u7b19</b><br/>\u4e27\u846c\u4eea\u5f0f\u4e2d\u6cd5\u5e08\u5439\u594f\u7684\u4e50\u5668\uff0c\u82a6\u7b19\u97f3\u5f8b\u88ab\u8ba4\u4e3a\u80fd\u6c9f\u901a\u9634\u9633\u4e24\u754c\u3001\u5b89\u629a\u4ea1\u9b42\u3002"},
+                {"name": "\u7eb8\u624e", "tooltip": "<b>\u7eb8\u624e</b><br/>\u711a\u70e7\u7ed9\u4ea1\u7075\u7684\u7eb8\u7cca\u796d\u54c1\uff0c\u5305\u542b\u5c4b\u820d\u3001\u7528\u5177\u7b49\uff0c\u8c61\u5f81\u5728\u5f7c\u5cb8\u4e16\u754c\u7684\u751f\u6d3b\u4fdd\u969c\u3002"},
+                {"name": "\u5893\u5730\u98ce\u6c34\u65b9\u4f4d\u56fe", "tooltip": "<b>\u5893\u5730\u98ce\u6c34\u65b9\u4f4d\u56fe</b><br/>\u4f9d\u636e\u5c71\u6c34\u5f62\u52bf\u4e0e\u661f\u8c61\u786e\u5b9a\u5893\u7a74\u671d\u5411\uff0c\u65e8\u5728\u4e3a\u4ea1\u7075\u8c0b\u6c42\u5b89\u7a33\u6816\u606f\u4e4b\u6240\u3002"},
+                {"name": "\u4e27\u846c\u884c\u8fdb\u8def\u7ebf", "tooltip": "<b>\u4e27\u846c\u884c\u8fdb\u8def\u7ebf</b><br/>\u9001\u846c\u961f\u4f0d\u5fc5\u987b\u9075\u5faa\u7684\u7279\u5b9a\u9053\u8def\uff0c\u7528\u4ee5\u907f\u5f00\u715e\u6c14\u5e76\u7b26\u5408\u7956\u5148\u8fc1\u5f99\u53e4\u9053\u3002"},
+                {"name": "\u661f\u5bbf", "tooltip": "<b>\u661f\u5bbf</b><br/>\u6c34\u65cf\u5929\u6587\u5386\u6cd5\u7684\u57fa\u7840\uff0c\u4e8c\u5341\u516b\u5bbf\u4e0e\u5177\u4f53\u661f\u5b98\u6307\u5bfc\u796d\u5929\u3001\u519c\u4e8b\u3001\u62e9\u65e5\u3002"},
+                {"name": "\u5929\u5e72\u5730\u652f", "tooltip": "<b>\u5929\u5e72\u5730\u652f</b><br/>\u6c34\u65cf\u5386\u6cd5\u8bb0\u65f6\u7cfb\u7edf\uff0c\u5341\u4e2a\u5929\u5e72\u4e0e\u5341\u4e8c\u5730\u652f\u7ec4\u5408\u5f62\u6210\u516d\u5341\u7532\u5b50\u5468\u671f\u3002"},
+                {"name": "\u8282\u6c14\u5b57", "tooltip": "<b>\u8282\u6c14\u5b57</b><br/>\u6c34\u65cf\u6587\u5b57\u4e2d\u8bb0\u5f55\u4e8c\u5341\u56db\u8282\u6c14\u7684\u7b26\u53f7\uff0c\u7528\u4e8e\u6307\u5bfc\u519c\u8015\u65f6\u5e8f\u4e0e\u796d\u7940\u8282\u70b9\u3002"},
+                {"name": "\u7f57\u76d8\u523b\u5ea6", "tooltip": "<b>\u7f57\u76d8\u523b\u5ea6</b><br/>\u582a\u8206\u5de5\u5177\u7684\u6838\u5fc3\u6807\u793a\uff0c\u7ed3\u5408\u661f\u5bbf\u4e0e\u5730\u8109\u6d4b\u91cf\u98ce\u6c34\u65b9\u4f4d\u4e0e\u5409\u65e5\u826f\u8fb0\u3002"},
+                {"name": "\u5386\u4e66\u6392\u7248", "tooltip": "<b>\u5386\u4e66\u6392\u7248</b><br/>\u6c34\u65cf\u5386\u4e66\u7684\u9875\u9762\u5e03\u5c40\uff0c\u5c06\u5e74\u3001\u6708\u3001\u65e5\u3001\u5409\u51f6\u5b9c\u5fcc\u6309\u9635\u5217\u89c4\u5f8b\u5448\u73b0\u3002"},
+                {"name": "\u7b97\u7b79\u6392\u5217", "tooltip": "<b>\u7b97\u7b79\u6392\u5217</b><br/>\u7528\u4e8e\u8ba1\u7b97\u5386\u6cd5\u548c\u535c\u5366\u7684\u7b79\u68d2\u6446\u5e03\u65b9\u5f0f\uff0c\u5f62\u6210\u7279\u5b9a\u7684\u6570\u5b66\u4e0e\u8c61\u5f81\u6a21\u578b\u3002"},
+                {"name": "\u661f\u7a7a\u65b9\u4f4d\u6620\u5c04\u56fe", "tooltip": "<b>\u661f\u7a7a\u65b9\u4f4d\u6620\u5c04\u56fe</b><br/>\u5c06\u5929\u4f53\u8fd0\u884c\u4e0e\u5730\u9762\u7a7a\u95f4\u76f8\u5bf9\u5e94\u7684\u56fe\u8c31\uff0c\u7528\u4e8e\u796d\u5929\u4eea\u5f0f\u65b9\u4f4d\u5b9a\u5219\u3002"},
+                {"name": "\u796d\u5929\u9ad8\u53f0\u9636\u68af", "tooltip": "<b>\u796d\u5929\u9ad8\u53f0\u9636\u68af</b><br/>\u796d\u5929\u573a\u6240\u7684\u9636\u68af\u7ed3\u6784\uff0c\u6bcf\u7ea7\u4ee3\u8868\u4e00\u5c42\u5929\u754c\uff0c\u6500\u722c\u8c61\u5f81\u6c9f\u901a\u4e0a\u5929"}
+            ],
+            "links": [
+                {"source": "\u4eea\u5f0f\u7cfb\u7edf", "target": "\u7aef\u8282\u796d\u7940", "value": 1},
+                {"source": "\u4eea\u5f0f\u7cfb\u7edf", "target": "\u5a5a\u5ac1\u62e9\u5409", "value": 1},
+                {"source": "\u4eea\u5f0f\u7cfb\u7edf", "target": "\u4e27\u846c\u7948\u798f", "value": 1},
+                {"source": "\u4eea\u5f0f\u7cfb\u7edf", "target": "\u5929\u6587\u62e9\u65e5", "value": 1},
+                {"source": "\u7aef\u8282\u796d\u7940", "target": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "value": 1},
+                {"source": "\u7aef\u8282\u796d\u7940", "target": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "value": 1},
+                {"source": "\u7aef\u8282\u796d\u7940", "target": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "value": 1},
+                {"source": "\u5a5a\u5ac1\u62e9\u5409", "target": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "value": 1},
+                {"source": "\u5a5a\u5ac1\u62e9\u5409", "target": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "value": 1},
+                {"source": "\u5a5a\u5ac1\u62e9\u5409", "target": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "value": 1},
+                {"source": "\u4e27\u846c\u7948\u798f", "target": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "value": 1},
+                {"source": "\u4e27\u846c\u7948\u798f", "target": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "value": 1},
+                {"source": "\u4e27\u846c\u7948\u798f", "target": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "value": 1},
+                {"source": "\u5929\u6587\u62e9\u65e5", "target": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "value": 1},
+                {"source": "\u5929\u6587\u62e9\u65e5", "target": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "value": 1},
+                {"source": "\u5929\u6587\u62e9\u65e5", "target": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u7956", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u796d", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u9c7c", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u5e74", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u548c\u5408", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u7e41\u884d", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u5409\u65e5\u5386\u6cd5\u5b57", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u7075\u9b42", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u6307\u8def", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u9634\u9633\u8f6c\u6362\u5b57", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u661f\u5bbf", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u5929\u5e72\u5730\u652f", "value": 1},
+                {"source": "\u6838\u5fc3\u6587\u5b57\u7b26\u53f7(\u5b57)", "target": "\u8282\u6c14\u5b57", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u94dc\u9f13\u7eb9\u7406", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u725b\u89d2\u676f\u5f62\u6001", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u9c7c\u5305\u97ed\u83dc\u7ed3\u6784", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u4f34\u5ac1\u7af9\u7bee\u7f16\u7ec7\u7eb9", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u7279\u5b9a\u7ea2\u7ef3\u7ed3\u7ef3\u6cd5", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u5f15\u9b42\u5e61\u526a\u7eb8\u8f6e\u5ed3", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u6cd5\u5e08\u82a6\u7b19", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u7eb8\u624e", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u7f57\u76d8\u523b\u5ea6", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u5386\u4e66\u6392\u7248", "value": 1},
+                {"source": "\u5173\u952e\u5b9e\u4f53\u5a92\u4ecb(\u7269)", "target": "\u7b97\u7b79\u6392\u5217", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u5b97\u7960\u5efa\u7b51\u6784\u4ef6", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u957f\u5e2d\u9635\u5217", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u796d\u575b\u5e03\u5c40", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u8fce\u4eb2\u8def\u5f84\u56fe\u8c31", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u5802\u5c4b\u7ea2\u9ed1\u8272\u5f69\u6784\u6210", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u5893\u5730\u98ce\u6c34\u65b9\u4f4d\u56fe", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u4e27\u846c\u884c\u8fdb\u8def\u7ebf", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u661f\u7a7a\u65b9\u4f4d\u6620\u5c04\u56fe", "value": 1},
+                {"source": "\u7a7a\u95f4\u573a\u666f\u5143\u7d20(\u5883)", "target": "\u796d\u5929\u9ad8\u53f0\u9636\u68af", "value": 1}
+            ],
+            "left": "5%",
+            "top": "5%",
+            "right": "20%",
+            "bottom": "5%",
+            "nodeWidth": 20,
+            "nodeGap": 8,
+            "nodeAlign": "justify",
+            "orient": "horizontal",
+            "draggable": true,
+            "zoom": 1,
+            "roam": false,
+            "label": {
+                "show": true,
+                "position": "right",
+                "color": "#333",
+                "margin": 8,
+                "fontSize": 11,
+                "richInheritPlainLabel": true,
+                "valueAnimation": false
+            },
+            "lineStyle": {
+                "show": false,
+                "opacity": 0.4,
+                "curveness": 0.5,
+                "color": "source"
+            },
+            "itemStyle": {
+                "borderColor": "#fff",
+                "borderWidth": 1
+            }
+        }],
+        "legend": [{
+            "data": ["\u6c34\u4e66\u4eea\u5f0f\u5143\u7d20"],
+            "selected": {},
+            "show": true,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10,
+            "triggerEvent": false
+        }],
+        "tooltip": {
+            "show": true,
+            "trigger": "item",
+            "triggerOn": "mousemove|click",
+            "axisPointer": {"type": "line"},
+            "showContent": true,
+            "alwaysShowContent": false,
+            "showDelay": 0,
+            "hideDelay": 100,
+            "enterable": false,
+            "confine": false,
+            "appendToBody": false,
+            "transitionDuration": 0.4,
+            "displayTransition": true,
+            "textStyle": {"fontSize": 14, "richInheritPlainLabel": true},
+            "borderWidth": 0,
+            "padding": 5,
+            "order": "seriesAsc"
+        },
+        "title": [{
+            "show": true,
+            "text": "\u6c34\u4e66\u4eea\u5f0f\u7cfb\u7edf\u89c6\u89c9\u5143\u7d20\u6851\u57fa\u56fe",
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false,
+            "textStyle": {"color": "#222", "fontSize": 20, "richInheritPlainLabel": true}
+        }]
+    };
+
+    chart.setOption(option);
+
+    window.addEventListener("resize", function () {
+        chart.resize();
+    });
+
+    if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(function () {
+            if (container.offsetWidth > 0) chart.resize();
+        }).observe(container);
+    }
+})();
