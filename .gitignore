@@ -4,5 +4,5 @@ __pycache__/
 *.rar
 *.docx
 *.xlsx
-*.png
+# *.png  (已放开，resource 里的 PNG 素材需要上传)
 *.exe
