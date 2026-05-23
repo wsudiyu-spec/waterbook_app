@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>水书仪式信息可视化</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://assets.pyecharts.org/assets/v6/echarts.min.js"></script>
+</head>
+<body>
+
+    <!-- 隐蔽标签切换 -->
+    <nav class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-page="page1">仪式图谱</button>
+        <button class="tab-btn" data-page="page2">视觉图集</button>
+        <button class="tab-btn" data-page="page3">桑基图谱</button>
+        <button class="tab-btn" data-page="page4">信息可视化</button>
+    </nav>
+
+    <!-- ==================== 页面1: 背景大图 + 交互热区 ==================== -->
+    <div class="page active" id="page1">
+    <section class="hero">
+        <div class="img-wrapper" id="mainWrap">
+            {% if bg_b64 %}
+            <img class="bg-img" src="data:image/png;base64,{{ bg_b64 }}"
+                 alt="水书仪式信息可视化">
+            {% else %}
+            <div class="img-fallback">⚠ 背景图加载失败</div>
+            {% endif %}
+
+            <!-- 片头标题遮罩 -->
+            <div class="hero-title-overlay" id="heroTitleOverlay">
+                <div class="hero-title-line1">水书仪式规程的数字化科普设计</div>
+                <div class="hero-title-line2">水族<span class="play-dot" id="playDot"></span>端节</div>
+            </div>
+
+            
+            <!-- 14 个透明交互框 — 位置用百分比，修改 left/top/width/height 即可 -->
+            <div class="hot-box" style="left:5%;  top:55%; width:4%;  height:25%;" data-tip="庚来大因亥｜天干地支纪时旗"></div>
+            <div class="hot-box" style="left:13%; top:58%; width:4%;  height:25%;" data-tip="十八尺寅｜方位时辰旗"></div>
+            <div class="hot-box" style="left:21%; top:55%; width:4%;  height:25%;" data-tip="夫欲人具｜祭祀人员准备旗"></div>
+            <div class="hot-box" style="left:28%; top:58%; width:4%;  height:25%;" data-tip="百六未参｜历法步骤旗"></div>
+            <div class="hot-box" style="left:35%; top:57%; width:3%;  height:25%;" data-tip="瓜甭龠｜祭品器具旗"></div>
+            <div class="hot-box" style="left:40%; top:55%; width:13%; height:28%;" data-tip="水书图腾旗｜仪式核心标志"></div>
+
+            <div class="hot-box" style="left:53%; top:85%; width:3%; height:10%;" data-tip="端节-序"></div>
+
+
+            <div class="hot-box" style="left:56%; top:59%; width:3%;  height:23%;" data-tip="百年丰收｜祭祀流程旗"></div>
+            <div class="hot-box" style="left:61%; top:59%; width:3%;  height:23%;" data-tip="风调雨顺｜祭祀规格旗"></div>
+            <div class="hot-box" style="left:65%; top:63%; width:3%;  height:18%;" data-tip="子孙繁衍｜后代绵延旗"></div>
+            <div class="hot-box" style="left:69%; top:63%; width:2.5%;  height:18%;" data-tip="八月初六｜日期计数旗"></div> 
+            <div class="hot-box" style="left:73%; top:65%; width:3%;  height:18%;" data-tip="祀祭不衰｜传承不息旗"></div>
+            <div class="hot-box" style="left:78%; top:65%; width:3%;  height:18%;" data-tip="匡扶正义｜护佑平安旗"></div>
+            <div class="hot-box" style="left:83%; top:65%; width:3%;  height:18%;" data-tip="青山一脉｜自然共生旗"></div>
+            <div class="hot-box" style="left:88%; top:65%; width:3%;  height:18%;" data-tip="千秋万代｜文化永续旗"></div>
+           
+            <!-- 香炉烟雾 -->
+            <div class="incense-smoke" id="incenseSmoke">
+                <span class="wisp w1"></span><span class="wisp w2"></span>
+                <span class="wisp w3"></span><span class="wisp w4"></span>
+                <span class="wisp w5"></span><span class="wisp w6"></span>
+                <span class="wisp w7"></span><span class="wisp w8"></span>
+                <span class="wisp w9"></span><span class="wisp w10"></span>
+                <span class="wisp w11"></span><span class="wisp w12"></span>
+                <span class="wisp w13"></span><span class="wisp w14"></span>
+                <span class="wisp w15"></span><span class="wisp w16"></span>
+                <span class="wisp w17"></span><span class="wisp w18"></span>
+                <span class="wisp w19"></span><span class="wisp w20"></span>
+                <span class="wisp w21"></span><span class="wisp w22"></span>
+                <span class="wisp w23"></span><span class="wisp w24"></span>
+            </div>
+
+            <!-- 悬浮弹窗 -->
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </section>
+    </div>
+
+    <!-- 视频弹窗 -->
+    {% if video_exists %}
+    <div class="video-overlay" id="videoOverlay">
+        <div class="video-modal">
+            <button class="video-close" id="videoClose">&times;</button>
+            <video id="mainVideo" controls src="/video"></video>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 端节场景弹窗 -->
+    {% if bgm_exists %}
+    <audio id="sceneBgm" src="/bgmusic" preload="auto"></audio>
+    {% endif %}
+    <div class="scene-overlay" id="sceneOverlay">
+        <div class="scene-modal">
+            <h2 class="scene-title">端节 · 序</h2>
+            <div class="scene-grid">
+                {% for img in scene_images %}
+                <div class="scene-item scene-item-{{ loop.index }}">
+                    <div class="scene-img-wrap">
+                        {% if img %}
+                        <img src="data:image/png;base64,{{ img }}" alt="场景{{ loop.index }}">
+                        {% else %}
+                        <div class="scene-img-fb">场景{{ loop.index }}</div>
+                        {% endif %}
+                    </div>
+                    <p class="scene-caption">{{ scene_captions[loop.index0] }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="scene-close-wrap">
+                <button class="scene-close" id="sceneClose">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 页面2: 视觉图集 ==================== -->
+    <div class="page" id="page2">
+    <section class="section">
+        <h2 class="section-title">视觉元素图集</h2>
+        <div class="card-row">
+            <div class="card card-elem" data-elem="0" style="cursor:pointer;">
+                {% if img1_b64 %}
+                <img src="data:image/png;base64,{{ img1_b64 }}" alt="">
+                {% endif %}
+                <p>铜鼓纹样</p>
+            </div>
+            <div class="card card-elem" data-elem="1" style="cursor:pointer;">
+                {% if img3_b64 %}
+                <img src="data:image/png;base64,{{ img3_b64 }}" alt="">
+                {% endif %}
+                <p>牛角图腾</p>
+            </div>
+            <div class="card card-elem" data-elem="2" style="cursor:pointer;">
+                {% if img2_b64 %}
+                <img src="data:image/png;base64,{{ img2_b64 }}" alt="">
+                {% endif %}
+                <p>鱼包韭菜</p>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- 元素详情弹窗 -->
+    <div class="elem-detail-overlay" id="elemDetailOverlay">
+        <div class="elem-detail-modal">
+            <div class="elem-detail-img-wrap">
+                <img id="elemDetailImg" alt="">
+            </div>
+            <p class="elem-detail-caption" id="elemDetailCaption"></p>
+            <div class="elem-detail-close-wrap">
+                <button class="scene-close" id="elemDetailClose">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 页面3: 桑基图谱 ==================== -->
+    <div class="page" id="page3">
+    <section class="chart-section">
+        <div class="chart-wrap">
+            <div id="sankeyChart" class="chart-container"></div>
+        </div>
+    </section>
+    </div>
+
+    <!-- ==================== 页面4: 信息可视化 ==================== -->
+    <div class="page" id="page4">
+    <section class="section">
+        <h2 class="section-title">信息可视化</h2>
+        <div class="page4-img-wrap">
+            {% if page4_b64 %}
+            <img src="data:image/jpeg;base64,{{ page4_b64 }}" alt="信息可视化">
+            {% else %}
+            <div class="img-fallback">⚠ 图片加载失败</div>
+            {% endif %}
+        </div>
+    </section>
+    </div>
+
+    <script>
+        var elemDetailImages = {{ elem_b64 | tojson }};
+        var elemDetailMimes  = {{ elem_mime | tojson }};
+        var elemDetailCaptions = {{ elem_captions | tojson }};
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/sankey.js"></script>
+</body>
+</html>
